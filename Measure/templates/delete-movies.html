@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+  <h1>Delete a movie</h1>
+  <form action="/delete" method="POST">
+	{% for movie in movies %}
+    <label for="id">id </label>{{movie.id}}
+    <input type="hidden" name="id" id="id" value="{{movie.id}}">
+    <input type="hidden" name="_method" value="DELETE" />
+    <label for="title">title </label>{{movie.title}}
+    {% endfor %}
+    <input type="submit">
+  </form>
+  <button type="cancel" onclick="javascript:window.location='/';">Cancel</button>
+</body>
+</html>
