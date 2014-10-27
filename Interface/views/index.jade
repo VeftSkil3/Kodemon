@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1= title
+    p Skilaverkefni 3 - Interface
+
+    table
+        tr
+            td
+                // FUNCTIONS LIST
+                #functionList
+                    h2 List of measured Functions 
+                        table
+                            thead
+                                th Key
+                            tbody
+                // /FUNCTIONS LIST
+            
+            td  &nbsp &nbsp &nbsp &nbsp
+            
+            td
+                // FUNCTION TIMES LIST
+                h2 List of Function Times 
+                #functionTimes
+                    table
+                        thead
+                            th Timestamp
+                            th ExecutionTime
+                            th Key
+                        tbody
+                // /FUNCTION TIMES LIST
+  
