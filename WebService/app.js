@@ -65,7 +65,36 @@ app.get('/api/kodemon/key/times/:id', function (req, res){
 				sendErrorResult(res, err);
 			}
 			else {
-				return MonData.find({'key': mondatas.key},function (err, execInfo) {
+				return MonData.find({key: mondatas.key}, function (err, execInfo) {
+					if (err) {
+						sendErrorResult(res, err);
+					} else {
+						var execTimeList = [];
+						for (var i=0;i<execInfo.length;i++){
+							execTimeList.push({ExecTime: execInfo[i].execution_time, DateTime: execInfo[i].timestamp});
+						}
+						sendResult(res, execTimeList);
+					}	
+			});
+		}
+	});
+});
+
+//Returns json object containing execution time and date for a key filtered for a given date
+app.get('/api/kodemon/key/times/:id/:datefrom/:dateto', function (req, res){
+		var start = new Date(req.params.datefrom);
+		var end = new Date(req.params.dateto);
+
+		MonData.findById(req.params.id,function (err, mondatas){
+			if (err){
+				sendErrorResult(res, err);
+			}
+			else {
+				console.log('Key: ' +req.params.id);
+				console.log('Date from: ' +start);
+				console.log('Date to: ' +end);
+
+				return MonData.find({key: mondatas.key, timestamp: {$lte: end, $gte: start}}, function (err, execInfo) {
 					if (err) {
 						sendErrorResult(res, err);
 					} else {
@@ -101,6 +130,6 @@ function sendErrorResult(res, err){
 
 // Launch server
 app.listen(4242, function(){
-	console.log('Kode man web server is running');
+	console.log('WebServer is running');
 });
 
