@@ -10,8 +10,17 @@ $(document).ready(function() {
     // function link click
     $('#functionList table tbody').on('click', 'td a.linkshowtimes', showFunctionTimes);
 
-
+	//var nowTime = new Date();
+    //nowTime.setHours(8);
+    //nowTime.setMinutes(50);
+    //alert(nowTime.toLocaleString());
+    //$("#Date1").datebox('setTheDate', nowTime).trigger('datebox', {'method':'doset'});
+    //$("#Date2").datebox('setTheDate', nowTime).trigger('datebox', {'method':'doset'});
+    //var dateObject = $('#Date1').datebox('getTheDate'),
+    //theDate =  $('#Date1').datebox('callFormat', '%d/%m/%Y', dateObject);
+	//alert(theDate);
 });
+
 
 // Functions =============================================================
 
@@ -28,7 +37,7 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowtimes" title="Show Details">' + this + '</a></td>';
+            tableContent += '<td><a href="#" class="linkshowtimes" rel="' + this.Id + ' "title="Show Details">' + /[^-]*$/.exec(this.Key)[0] + '</a></td>';
             tableContent += '</tr>';
         });;
         // Inject the whole content string into our existing HTML table
@@ -42,16 +51,15 @@ function showFunctionTimes(event) {
 	// Empty content string
     var tableContent2 = '';
     // jQuery AJAX call for JSON
-    $.getJSON( '/functions/times/544aac4c2e79ce831957102b', function( data ) {
+    $.getJSON( '/functions/times/' + $(this).attr('rel'), function( data ) {
         // Stick our function data array into a functionlist variable in the global object
 		//functionTimesData = data;
 
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent2 += '<tr>';
-            tableContent2 += '<td>' + this.timestamp + '</td>';
-            tableContent2 += '<td>' + this.execution_time + '</td>';
-            tableContent2 += '<td>' + this.key + '</td>';
+            tableContent2 += '<td>' + this.DateTime + '</td>';
+            tableContent2 += '<td>' + this.ExecTime + '</td>';
             tableContent2 += '</tr>';
         });;
         // Inject the whole content string into our existing HTML table
