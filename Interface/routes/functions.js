@@ -7,7 +7,6 @@ router.get('/functionlist', function(req, res1) {
   request.get("http://localhost:4242/api/kodemon/keys", function (err, res, body) {
 		if (!err) {
 			var resultsObj = JSON.parse(body);
-			//Just an example of how to access properties:
 			res1.send(resultsObj);
 		}
 	});
@@ -18,7 +17,6 @@ router.get('/times/:id', function(req, res1) {
   request.get("http://localhost:4242/api/kodemon/key/times/"+req.params.id, function (err, res, body) {
 		if (!err) {
 			var resultsObj = JSON.parse(body);
-			//Just an example of how to access properties:
 			res1.send(resultsObj);
 		}
 	});
@@ -29,7 +27,6 @@ router.get('/times/:id/:from/:to', function(req, res1) {
   request.get("http://localhost:4242/api/kodemon/key/times/"+req.params.id + "/" + req.params.from + "/" + req.params.to, function (err, res, body) {
 		if (!err) {
 			var resultsObj = JSON.parse(body);
-			//Just an example of how to access properties:
 			res1.send(resultsObj);
 		}
 	});
