@@ -20,35 +20,34 @@ table td, table td * {
     vertical-align: top;
 }
 
-#functionList {
-	margin:0 0 30px 0;
-	position:relative;
-	left: 0; top: 0;
-}
-	#functionList table {
-		border-collapse:separate;
-		border-spacing:1px;
-		background:#CCC;
-	}
-		#functionList table th {
-			background:#EEE;
-			font-weight:600;
-			padding:10px 20px;
-			text-align:center;
-		}
-		#functionList table tbody {
-			padding:0; margin:0;
-			border-collapse:collapse;
-			border-spacing:0px;
-		}
-			#userList table td {
-				background:#FFF;
-				padding:5px 10px;
-				text-align:center;
-			}
-
 
 fieldset {
 	border:0;
 	padding:0; margin:0;
+}
+
+#functionTimes {
+    font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#functionTimes td, #functionTimes th {
+    font-size: 1em;
+    border: 1px solid #6E6E6E;
+    padding: 3px 7px 2px 7px;
+}
+
+#functionTimes th {
+    font-size: 1.1em;
+    text-align: left;
+    padding-top: 5px;
+    padding-bottom: 4px;
+    background-color: #6E6E6E;
+    color: #ffffff;
+}
+
+#functionTimes tr.alt td {
+    color: #000000;
+    background-color: #E6E6E6;
 }
