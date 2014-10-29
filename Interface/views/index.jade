@@ -2,36 +2,51 @@ extends layout
 
 block content
     h1= title
+    p Skilaverkefni 3 - Interface
     
     div. data-role="page" id="page1">
         <div data-role="content">
             <table>
-                <h2> Function list </h2> 
                 <tr>
                     <td>
-                        <select name="combo" id="combo" onClick="showFunctionTimes(this.value);" onChange="showFunctionTimes(this.value);"></select>
+                        Functions-> 
+                        <select id="thekeys" onClick="showFunctionTimes(this.value);" onChange="showFunctionTimes(this.value);">
+                        </select>
                     </td>
-                </tr>
-            </table>
-        </br>
-        </br>
-            <table>
-                <h2> Search by dates: <input type="checkbox" id="dates" value="yes"> </h2> 
-                </tr>
+                    <td>
+                        <input type="checkbox" id="dates" value="yes">Limit by dates: 
+                    </td>
+                    <td>
+                        &nbsp &nbsp &nbsp 
+                    </td>
                     <td>
                         <label for="from">From</label>
                         <input type="text" id="from" name="from">
                         <label for="to">to</label>
                         <input type="text" id="to" name="to">
                     </td>
+                    <td>
+                        <div id="error" style="color:#FF0000">
+                        </div>
+                    </td>
                 </tr>
             </table>
-        </br>
-        </br>
-    </div>
+
 
     table
         tr
+            td
+                // FUNCTIONS LIST
+                // h2 Functions
+                // #functionList
+                //     table
+                //         thead
+                //             th Keys
+                //         tbody
+                // /FUNCTIONS LIST
+            
+            td  &nbsp &nbsp &nbsp &nbsp
+            
             td
                 // FUNCTION TIMES LIST
                 h2 List of Function Times 
