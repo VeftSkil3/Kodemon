@@ -90,10 +90,6 @@ app.get('/api/kodemon/key/times/:id/:datefrom/:dateto', function (req, res){
 				sendErrorResult(res, err);
 			}
 			else {
-				console.log('Key: ' +req.params.id);
-				console.log('Date from: ' +start);
-				console.log('Date to: ' +end);
-
 				return MonData.find({key: mondatas.key, timestamp: {$lte: end, $gte: start}}, function (err, execInfo) {
 					if (err) {
 						sendErrorResult(res, err);
