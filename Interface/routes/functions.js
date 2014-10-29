@@ -24,4 +24,15 @@ router.get('/times/:id', function(req, res1) {
 	});
 });
 
+/* GET list of functions by date. */
+router.get('/times/:id/:from/:to', function(req, res1) {
+  request.get("http://localhost:4242/api/kodemon/key/times/"+req.params.id + "/" + req.params.from + "/" + req.params.to, function (err, res, body) {
+		if (!err) {
+			var resultsObj = JSON.parse(body);
+			//Just an example of how to access properties:
+			res1.send(resultsObj);
+		}
+	});
+});
+
 module.exports = router;
