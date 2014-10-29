@@ -5,7 +5,9 @@ var functionListData = [];
 // DOM Ready =============================================================
 $(document).ready(function() {
     // Populate the functionList table on initial page load
-    populateTable();
+    //populateTable();
+    
+    populateCombo();
     
     // function link click
     $('#functionList table tbody').on('click', 'td a.linkshowtimes', showFunctionTimes);
@@ -37,16 +39,36 @@ function populateTable() {
     });
 };
 
+// Fill combo with data
+function populateCombo() {
+    // Empty content string
+    var comboContent = '';
+    var select = document.getElementById("thekeys");
+    // jQuery AJAX call for JSON
+    $.getJSON( '/functions/functionlist', function( data ) {
+		// Stick our function data array into a functionlist variable in the global object
+		functionListData = data;
 
-function showFunctionTimes(event) {
-    event.preventDefault();
+        // For each item in our JSON, add a table row and cells to the content string
+        $.each(data, function(){
+			var option = document.createElement('option');
+			option.text = /[^/]*$/.exec(this.Key)[0];
+			option.value=this.Id;
+			select.add(option, 0);
+        });;
+    });
+};
+
+
+function showFunctionTimes(key) {
+    //event.preventDefault();
 	// Empty content string
     var tableContent = '';
     var date1=document.getElementById("from").value;
     var date2=document.getElementById("to").value;
     if(document.getElementById("dates").checked){
         // jQuery AJAX call for JSON
-        $.getJSON( '/functions/times/' + $(this).attr('rel') + '/' + date1 + '/' + date2, function( data ) {
+        $.getJSON( '/functions/times/' + key + '/' + date1 + '/' + date2, function( data ) {
             // Stick our function data array into a functionlist variable in the global object
             //functionTimesData = data;
 
@@ -63,7 +85,7 @@ function showFunctionTimes(event) {
     }
     else {
         // jQuery AJAX call for JSON
-        $.getJSON( '/functions/times/' + $(this).attr('rel'), function( data ) {
+        $.getJSON( '/functions/times/' + key, function( data ) {
             // Stick our function data array into a functionlist variable in the global object
             //functionTimesData = data;
 
