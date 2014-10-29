@@ -9,6 +9,11 @@ block content
             <table>
                 <tr>
                     <td>
+                        Functions-> 
+                        <select id="thekeys" onClick="showFunctionTimes(this.value);" onChange="showFunctionTimes(this.value);">
+                        </select>
+                    </td>
+                    <td>
                         <input type="checkbox" id="dates" value="yes">Limit by dates: 
                     </td>
                     <td>
@@ -22,19 +27,18 @@ block content
                     </td>
                 </tr>
             </table>
-                
 
 
     table
         tr
             td
                 // FUNCTIONS LIST
-                h2 Functions
-                #functionList
-                    table
-                        thead
-                            th Keys
-                        tbody
+                // h2 Functions
+                // #functionList
+                //     table
+                //         thead
+                //             th Keys
+                //         tbody
                 // /FUNCTIONS LIST
             
             td  &nbsp &nbsp &nbsp &nbsp
