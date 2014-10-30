@@ -5,6 +5,16 @@ var functionListData = [];
 $(document).ready(function() {
     // Populate the functionList combo on initial page load
     populateCombo();
+
+    document.onkeypress = keyPress;
+
+    function keyPress(e){
+        var x = e || window.event;
+        var key = (x.keyCode || x.which);
+        if(key == 13 || key == 3){
+            showFunctionTimes(); 
+        }
+    };
 });
 
 // Functions =============================================================
@@ -55,16 +65,18 @@ function populateCombo() {
     });
 };
 
-function showFunctionTimes(key) {
+function showFunctionTimes() {
 	// Empty content string
     var tableContent = '';
     var tableSum = '';
     var execTimes = [];
 
     document.getElementById("error").innerHTML = "";
+    var key = document.getElementById("combo").value; 
+
+    console.log('key: ' + key);
 
     if(document.getElementById("dates").checked === true){
-
         var date1=document.getElementById("from").value;
         var date2=document.getElementById("to").value;
 
