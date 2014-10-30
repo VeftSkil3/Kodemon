@@ -27,7 +27,7 @@ function populateCombo() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             var option = document.createElement("option");
-            option.text = /[^-]*$/.exec(this.Key)[0];
+            option.text = /[^/]*$/.exec(this.Key)[0];
             option.value = this.Id;
             try {
                 combo.add(option, null); //Standard 
@@ -41,6 +41,7 @@ function populateCombo() {
 function showFunctionTimes(key) {
 	// Empty content string
     var tableContent = '';
+       
     document.getElementById("error").innerHTML = "";
 
     if(document.getElementById("dates").checked === true){
