@@ -15,6 +15,22 @@ function isValidDate(s) {
     return d && (d.getMonth() + 1) == bits[1] && d.getDate() == Number(bits[2]);
 };
 
+function getMinTime( array ){
+    return Math.min.apply( Math, array );
+};
+
+function getMaxTime( array ){
+    return Math.max.apply( Math, array );
+};
+
+function getAverageTime( array ){
+    var sum = 0;
+    for( var i = 0; i < array.length; i++ ){
+        sum += parseFloat(array[i]); 
+    };
+    return sum / array.length;    
+};
+
 // Fill table with data
 function populateCombo() {
     // Get the combo
@@ -27,6 +43,7 @@ function populateCombo() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             var option = document.createElement("option");
+            //option.text = /[^-]*$/.exec(this.Key)[0];
             option.text = /[^/]*$/.exec(this.Key)[0];
             option.value = this.Id;
             try {
@@ -41,7 +58,9 @@ function populateCombo() {
 function showFunctionTimes(key) {
 	// Empty content string
     var tableContent = '';
-       
+    var tableSum = '';
+    var execTimes = [];
+
     document.getElementById("error").innerHTML = "";
 
     if(document.getElementById("dates").checked === true){
@@ -63,9 +82,18 @@ function showFunctionTimes(key) {
                 tableContent += '<td>' + this.DateTime.slice(0, 10) +  "  " + this.DateTime.slice(12, 19) + '</td>';
                 tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
                 tableContent += '</tr>';
+                execTimes.push(this.ExecTime);
             });;
+
+            tableSum += '<tr>';
+            tableSum += '<td>' + getAverageTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '<td>' + getMaxTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '</tr>';
+
             // Inject the whole content string into our existing HTML table
             $('#functionTimes table tbody').html(tableContent);
+            $('#functionSummary table tbody').html(tableSum);
         });
     }
     else {
@@ -77,9 +105,18 @@ function showFunctionTimes(key) {
                 tableContent += '<td>' + this.DateTime.slice(0, 10) + "  " + this.DateTime.slice(12, 19) + '</td>';
                 tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
                 tableContent += '</tr>';
-            });;
+                execTimes.push(this.ExecTime);
+            });
+
+            tableSum += '<tr>';
+            tableSum += '<td>' + getAverageTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '<td>' + getMaxTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
+            tableSum += '</tr>';
+
             // Inject the whole content string into our existing HTML table
             $('#functionTimes table tbody').html(tableContent);
+            $('#functionSummary table tbody').html(tableSum);
         });
     }
 };
