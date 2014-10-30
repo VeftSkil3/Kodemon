@@ -41,18 +41,19 @@ function populateCombo() {
 function showFunctionTimes(key) {
 	// Empty content string
     var tableContent = '';
+    document.getElementById("error").innerHTML = "";
 
-    if(document.getElementById("dates").checked){
+    if(document.getElementById("dates").checked === true){
 
         var date1=document.getElementById("from").value;
         var date2=document.getElementById("to").value;
 
         //Check for valid dates
         if(!isValidDate(date1) || !isValidDate(date2)){
-            document.getElementById("error").innerHTML="Limit by dates is selected and date value is not correct!";
-        return;
+            document.getElementById("error").innerHTML = "Search by dates is selected and date value is not correct!";
+            return;
         }
-
+        
         // jQuery AJAX call for JSON
         $.getJSON( '/functions/times/' + key + '/' + date1 + '/' + date2, function( data ) {
             // For each item in our JSON, add a table row and cells to the content string
