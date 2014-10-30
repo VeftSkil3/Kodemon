@@ -28,29 +28,22 @@ block content
                 <h2> Function list </h2> 
                 <tr>
                     <td>
-                        <select name="combo" id="combo" onClick="showFunctionTimes(this.value);" onChange="showFunctionTimes(this.value);"></select>
+                        <select name="combo" id="combo"></select>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <button type="button" id="refresh" name ="refresh" onClick="showFunctionTimes();">Refresh</button>                    
+                    </td>
+                    <td>
+                        <label id="error" name="error" style="color:#FF0000">
+                        </label>
                     </td>
                 </tr>
             </table>
         </br>
         </br>
     </div>
-
-    table
-        h2 Function execution time
-        tr
-            td
-                // FUNCTION TIMES LIST
-                #functionTimes
-                    table
-                        thead
-                            th Timestamp
-                            th ExecutionTime
-                        tbody
-                // /FUNCTION TIMES LIST
-
-    br
-    br 
 
     table
         h2 Summary
@@ -66,5 +59,22 @@ block content
                         tbody
                 // /FUNCTION SUMMARY LIST
 
+    br
+    br 
 
+    table
+        h2 Function execution time
+        tr
+            td
+                // FUNCTION TIMES LIST
+                #functionTimes
+                    table
+                        thead
+                            th Timestamp
+                            th ExecutionTime
+                        tbody
+                // /FUNCTION TIMES LIST
+
+  
+  
 
