@@ -10,4 +10,10 @@ fyrir efnið á síðunni og error.jade fyrir villuboð.
 Í /public/stylesheets er skráin styles.css sem er notuð til að forma útlit á vefsíðunni
 Í /public/images á að setja þær myndir sem er verið að nota á vefnum og þar á meðal favicon.ico skránna
 
+Bootstrap:
+
+Hlaða niður Twitter Bootstrp frá: http://twitter.github.com/bootstrap/assets/bootstrap.zip og unzippa í public/bootstrap möppu.
+
+
+
 
