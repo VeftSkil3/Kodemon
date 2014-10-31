@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from db import Session
-from models import Movie
+from model import Movie
 from kodemon import kodemon
 
 app = Flask(__name__)

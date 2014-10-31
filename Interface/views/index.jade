@@ -4,12 +4,12 @@ block content
     h1= title
     
     div. data-role="page" id="page1">
+
         <div data-role="content">
         </br>
-        </br>
-            <table>
-                <h2> Search by dates: <input type="checkbox" id="dates" name ="dates" value="yes"> </h2> 
-                </tr>
+            <h4> Search by dates: <input type="checkbox" id="dates" name ="dates" value="yes"> </h4> 
+            <table class="form-inline">
+                </tr class >
                     <td>
                         <label for="from">From</label>
                         <input type="text" id="from" name="from">
@@ -23,35 +23,28 @@ block content
                 </tr>
             </table>
         </br>
-        </br>
-            <table>
-                <h2> Function list </h2> 
+            <h4> Function list </h4> 
+            <table class="form-inline">
                 <tr>
                     <td>
-                        <select name="combo" id="combo"></select>
+                        <select class="selectpicker" name="combo" id="combo"></select>
                     </td>
                     <td>
-                    </td>
-                    <td>
-                        <button type="button" id="refresh" name ="refresh" onClick="showFunctionTimes();">Refresh</button>                    
-                    </td>
-                    <td>
-                        <label id="error" name="error" style="color:#FF0000">
-                        </label>
+                        <button type="button" class="btn btn-default btn-lg active" id="refresh" name ="refresh" onClick="showFunctionTimes();">Refresh</button>
                     </td>
                 </tr>
             </table>
         </br>
-        </br>
     </div>
 
-    table
-        h2 Summary
+
+    table.table-responsive
+        h4 Summary
         tr
             td
                 // FUNCTION SUMMARY LIST
                 #functionSummary
-                    table
+                    table.table.table-striped.table-bordered
                         thead
                             th Average execution time
                             th Max execution time
@@ -60,18 +53,18 @@ block content
                 // /FUNCTION SUMMARY LIST
 
     br
-    br 
 
-    table
-        h2 Function execution time
+    table.table-responsive
+        h4 Function execution time
         tr
             td
                 // FUNCTION TIMES LIST
                 #functionTimes
-                    table
+                    table.table.table-striped.table-bordered
                         thead
+                            th #
                             th Timestamp
-                            th ExecutionTime
+                            th Execution time
                         tbody
                 // /FUNCTION TIMES LIST
 

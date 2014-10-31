@@ -4,7 +4,7 @@ from flask.ext.script import Manager
 
 from app import app
 from db import engine, Base
-from models import Movie
+from model import Movie
 
 manager = Manager(app)
 

@@ -65,7 +65,7 @@ app.get('/api/kodemon/key/times/:id', function (req, res){
 				sendErrorResult(res, err);
 			}
 			else {
-				return MonData.find({key: mondatas.key}, function (err, execInfo) {
+				return MonData.find( { $query: {key: mondatas.key}, $orderby: {timestamp: -1} }, function (err, execInfo) {
 					if (err) {
 						sendErrorResult(res, err);
 					} else {
@@ -90,7 +90,7 @@ app.get('/api/kodemon/key/times/:id/:datefrom/:dateto', function (req, res){
 				sendErrorResult(res, err);
 			}
 			else {
-				return MonData.find({key: mondatas.key, timestamp: {$lte: end, $gte: start}}, function (err, execInfo) {
+				return MonData.find( { $query: {key: mondatas.key, timestamp: {$lte: end, $gte: start} }, $orderby: {timestamp: -1} }, function (err, execInfo) {
 					if (err) {
 						sendErrorResult(res, err);
 					} else {

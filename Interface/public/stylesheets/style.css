@@ -1,14 +1,6 @@
 body {
   padding: 30px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-h2 {
-	margin:0 0 .5em 0;
-}
-
-a {
-  color: #00B7FF;
+  font: 14px Arial, Helvetica, sans-serif;
 }
 
 #wrapper {
@@ -19,40 +11,4 @@ a {
 fieldset {
 	border:0;
 	padding:0; margin:0;
-}
-
-table td, table td * {
-    vertical-align: top;
-}
-
-#functionTimes {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-
-#functionTimes td, tbody, #functionTimes thead, th {
-    font-size: 1em;
-    border: 1px solid #424242;
-    padding: 3px 7px 2px 7px;
-}
-
-#functionTimes thead, th {
-    font-size: 1.1em;
-    text-align: left;
-    padding-top: 5px;
-    padding-bottom: 4px;
-    background-color: #585858;
-    color: #ffffff;
-}
-
-#functionTimes tr.alt td, tbody {
-    color: #000000;
-    background-color: #F2F2F2;
-}
-
-#functionTimes tr.alt td, tbody {
-    color: #000000;
-    background-color: #F2F2F2;
 }
