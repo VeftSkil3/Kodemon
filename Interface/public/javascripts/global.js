@@ -41,7 +41,7 @@ function getAverageTime( array ){
     return sum / array.length;    
 };
 
-// Fill table with data
+// Fill table with functions data
 function populateCombo() {
     // Get the combo
     var combo = document.getElementById("combo");
@@ -65,16 +65,17 @@ function populateCombo() {
     });
 };
 
+//Fill table with execution times for a given function 
 function showFunctionTimes() {
 	// Empty content string
     var tableContent = '';
     var tableSum = '';
     var execTimes = [];
+    var counter = 1;
+    var query = "";
 
     document.getElementById("error").innerHTML = "";
     var key = document.getElementById("combo").value; 
-
-    console.log('key: ' + key);
 
     if(document.getElementById("dates").checked === true){
         var date1=document.getElementById("from").value;
@@ -85,50 +86,38 @@ function showFunctionTimes() {
             document.getElementById("error").innerHTML = "Search by dates is selected and date value is not correct!";
             return;
         }
+
+        query = key + '/' + date1 + '/' + date2;
+    }
+    else
+    {
+        query = key;
+    } 
         
-        // jQuery AJAX call for JSON
-        $.getJSON( '/functions/times/' + key + '/' + date1 + '/' + date2, function( data ) {
-            // For each item in our JSON, add a table row and cells to the content string
-            $.each(data, function(){
-                tableContent += '<tr>';
-                tableContent += '<td>' + this.DateTime.slice(0, 10) +  "  " + this.DateTime.slice(12, 19) + '</td>';
-                tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
-                tableContent += '</tr>';
-                execTimes.push(this.ExecTime);
-            });;
-
-            tableSum += '<tr>';
-            tableSum += '<td>' + getAverageTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '<td>' + getMaxTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '</tr>';
-
-            // Inject the whole content string into our existing HTML table
-            $('#functionTimes table tbody').html(tableContent);
-            $('#functionSummary table tbody').html(tableSum);
+    // jQuery AJAX call for JSON
+    $.getJSON( '/functions/times/' + query, function( data ) {
+        // For each item in our JSON, add a table row and cells to the content string  
+        $.each(data, function(){
+            if (counter % 2) {
+                tableContent += '<tr>';}
+            else {
+                tableContent += '<tr class="alt">';}
+            tableContent += '<td>' + counter + '</td>';
+            tableContent += '<td>' + this.DateTime.slice(0, 10) +  "  " + this.DateTime.slice(12, 19) + '</td>';
+            tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
+            tableContent += '</tr>';
+            execTimes.push(this.ExecTime);
+            counter += 1;
         });
-    }
-    else {
-        // jQuery AJAX call for JSON
-        $.getJSON( '/functions/times/' + key, function( data ) {
-            // For each item in our JSON, add a table row and cells to the content string
-            $.each(data, function(){
-                tableContent += '<tr>';
-                tableContent += '<td>' + this.DateTime.slice(0, 10) + "  " + this.DateTime.slice(12, 19) + '</td>';
-                tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
-                tableContent += '</tr>';
-                execTimes.push(this.ExecTime);
-            });
 
-            tableSum += '<tr>';
-            tableSum += '<td>' + getAverageTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '<td>' + getMaxTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
-            tableSum += '</tr>';
+        tableSum += '<tr>';
+        tableSum += '<td>' + getAverageTime(execTimes).toFixed(4) + '</td>';
+        tableSum += '<td>' + getMaxTime(execTimes).toFixed(4) + '</td>';
+        tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
+        tableSum += '</tr>';
 
-            // Inject the whole content string into our existing HTML table
-            $('#functionTimes table tbody').html(tableContent);
-            $('#functionSummary table tbody').html(tableSum);
-        });
-    }
+        // Inject the whole content string into our existing HTML table
+        $('#functionTimes table tbody').html(tableContent);
+        $('#functionSummary table tbody').html(tableSum);
+    });    
 };
