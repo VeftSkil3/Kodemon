@@ -88,14 +88,13 @@ function showFunctionTimes() {
     if(document.getElementById("dates").checked === true){
         var date1=document.getElementById("from").value;
         var date2=document.getElementById("to").value;
-
         //Check for valid dates
         if(!isValidDate(date1) || !isValidDate(date2)){
             document.getElementById("error").innerHTML = "Search by dates is selected and date value is not correct!";
             return;
         }
 
-        query = key + '/' + date1 + '/' + date2;
+        query = key + '/' + date1 + '/' + date2 + ' 23:59:59';
     }
     else
     {
