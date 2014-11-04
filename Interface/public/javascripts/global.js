@@ -41,7 +41,6 @@ function getAverageTime( array ){
     return sum / array.length;    
 };
 
-
 // Fill table with functions data
 function populateCombo() {
     // Get the combo

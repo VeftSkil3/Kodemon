@@ -12,3 +12,4 @@ router.get('/chart/:key', function(req, res) {
 });
 
 module.exports = router;
+
