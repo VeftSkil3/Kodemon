@@ -46,7 +46,7 @@ def deleteGet():
     print 'Method=deleteGet'
     session = Session()
     movies = session.query(Movie).filter(Movie.id == id).all()
-    return render_template('delete-movie.html', movies=movies)
+    return render_template('delete-movies.html', movies=movies)
         
 
 @app.route('/delete', methods=['POST', 'DELETE'])
