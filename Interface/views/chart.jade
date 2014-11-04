@@ -1,8 +1,12 @@
 extends layout
 
 block content
+	script.
+		key="#{chartId}"
+ 
 	script(src='/javascripts/chart.js')
 	h1= title
+
 
 		<div id="container" name="container" style="min-width: 310px; height: 400px; margin: 0 auto">
 		</div>

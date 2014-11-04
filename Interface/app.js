@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/chart', routes); 
+app.use('/chart/:key', routes); 
 app.use('/functions', functions);
 
 /// catch 404 and forwarding to error handler

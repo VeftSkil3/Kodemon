@@ -47,6 +47,7 @@ function populateCombo() {
     // Get the combo
     var combo = document.getElementById("combo");
     // jQuery AJAX call for JSON
+    
     $.getJSON( '/functions/functionlist', function( data ) {
         // Stick our function data array into a functionlist variable in the global object
         functionListData = data;

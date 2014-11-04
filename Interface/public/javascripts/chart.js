@@ -56,8 +56,6 @@ $(document).ready(function() {
 
 function getNewChartData() {
 
-    var key = "544e5b3b627d250d0ec061d7";
-
     var dateFrom = new Date('2014-11-03'); 
     var dateTo = new Date();
 
