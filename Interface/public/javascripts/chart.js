@@ -55,11 +55,12 @@ $(document).ready(function() {
 });
 
 function getNewChartData() {
+    var counter = 1;
+    var mf = moment().subtract(1, 'day');
+    var dateFrom = mf.startOf('day'); 
+    var dateTo = moment(); 
 
-    var dateFrom = new Date('2014-11-03'); 
-    var dateTo = new Date();
-
-    var query = key + '/' + dateFrom + '/' + dateTo;
+    var query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
 
     setInterval(function () {
         $.getJSON( '/functions/times/' + query, function( data ) {
@@ -73,10 +74,6 @@ function getNewChartData() {
             });
 
             if (dtmp.length !== 0 ){
-                dateFrom = dateTo
-                dateTo = new Date();
-                query = key + '/' + dateFrom + '/' + dateTo;
-
                 var series = chart.series[0];
                 var shift = series.data.length > 10; // shift if the series is 
                                                      // longer than 10
@@ -84,7 +81,12 @@ function getNewChartData() {
                     series.addPoint(dtmp[i], true, shift);
                 }
             }
+            
+            dateFrom = moment(dateTo._d);
+            dateTo = moment(); 
+
+            query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
         });
-    }, 1000);
+    }, 5000);
 }
 
