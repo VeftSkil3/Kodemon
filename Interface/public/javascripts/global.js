@@ -19,6 +19,13 @@ $(document).ready(function() {
 
 // Functions =============================================================
 //Check for valid dates
+
+function OnChangeCheckbox () {
+	if (document.getElementById("error").innerHTML != "") {
+		document.getElementById("error").innerHTML = "";
+	}
+}
+
 function isValidDate(s) {
     var bits = s.split('-');
     var d = new Date(bits[0], bits[1] - 1, bits[2]);
