@@ -1,13 +1,11 @@
-// Functionlist data array for filling in selection box
-var functionListData = [];
-
 // DOM Ready =============================================================
 $(document).ready(function() {
-    // Populate the functionList combo on initial page load
+    // Sæki einkvæman lista af föllum í combo 
     populateCombo();
 
     document.onkeypress = keyPress;
 
+    // Ef notandi ýtir á enter þá eru sótt gögn
     function keyPress(e){
         var x = e || window.event;
         var key = (x.keyCode || x.which);
@@ -18,14 +16,13 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
-//Check for valid dates
-
+// Þurka út villuskilaboð
 function OnChangeCheckbox () {
 	if (document.getElementById("error").innerHTML != "") {
 		document.getElementById("error").innerHTML = "";
 	}
 }
-
+// Er dagsetning lögleg
 function isValidDate(s) {
     var bits = s.split('-');
     var d = new Date(bits[0], bits[1] - 1, bits[2]);
@@ -48,20 +45,15 @@ function getAverageTime( array ){
     return sum / array.length;    
 };
 
-// Fill table with functions data
+// Sæki gögn í combo 
 function populateCombo() {
-    // Get the combo
     var combo = document.getElementById("combo");
-    // jQuery AJAX call for JSON
     
     $.getJSON( '/functions/functionlist', function( data ) {
-        // Stick our function data array into a functionlist variable in the global object
-        functionListData = data;
 
-        // For each item in our JSON, add a table row and cells to the content string
+        // Fyrir hverja færslu í JSON, bætum við í combo 
         $.each(data, function(){
             var option = document.createElement("option");
-            //option.text = /[^-]*$/.exec(this.Key)[0];
             option.text = /[^/]*$/.exec(this.Key)[0];
             option.value = this.Id;
             try {
@@ -73,9 +65,8 @@ function populateCombo() {
     });
 };
 
-//Fill table with execution times for a given function 
+// Sækir gögn yfir keyrslutíma aðgerðar
 function showFunctionTimes() {
-	// Empty content string
     var tableContent = '';
     var tableSum = '';
     var execTimes = [];
@@ -85,15 +76,16 @@ function showFunctionTimes() {
     document.getElementById("error").innerHTML = "";
     var key = document.getElementById("combo").value; 
 
+    // Smíða query eftir því hvort á að nota dagsetningar eða ekki 
     if(document.getElementById("dates").checked === true){
         var date1=document.getElementById("from").value;
         var date2=document.getElementById("to").value;
-        //Check for valid dates
+
+        //Eru dagsetningar löglegar
         if(!isValidDate(date1) || !isValidDate(date2)){
             document.getElementById("error").innerHTML = "Search by dates is selected and date value is not correct!";
             return;
         }
-
         query = key + '/' + date1 + '/' + date2 + ' 23:59:59';
     }
     else
@@ -101,9 +93,8 @@ function showFunctionTimes() {
         query = key;
     } 
         
-    // jQuery AJAX call for JSON
     $.getJSON( '/functions/times/' + query, function( data ) {
-        // For each item in our JSON, add a table row and cells to the content string  
+        // Fyrir hverja færslu í JSON búum til HTML töflu
         $.each(data, function(){
             if (counter % 2) {
                 tableContent += '<tr>';}
@@ -123,7 +114,7 @@ function showFunctionTimes() {
         tableSum += '<td>' + getMinTime(execTimes).toFixed(4) + '</td>';
         tableSum += '</tr>';
 
-        // Inject the whole content string into our existing HTML table
+        // Skilum gögnum í viðmótið
         $('#functionTimes table tbody').html(tableContent);
         $('#functionSummary table tbody').html(tableSum);
     });    

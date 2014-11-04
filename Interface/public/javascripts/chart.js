@@ -1,9 +1,10 @@
+//Skilgreini global chart object
 var chart; 
 
 $(document).ready(function() {
-
+    // Dom element sem hýsir chart
     var chartContainer = document.getElementById("container");
-
+    // Frumstilli chart
     var options = {
         chart: {
             type: 'spline',
@@ -54,6 +55,7 @@ $(document).ready(function() {
 
 });
 
+// Fall sem sækir ný gögn í chart á 5 sekúnda fresti 
 function getNewChartData() {
     var counter = 1;
     var mf = moment().subtract(1, 'day');
@@ -75,13 +77,12 @@ function getNewChartData() {
 
             if (dtmp.length !== 0 ){
                 var series = chart.series[0];
-                var shift = series.data.length > 10; // shift if the series is 
-                                                     // longer than 10
+                var shift = series.data.length > 10; // ef series er stærri en 10 stök klippi af 
                 for(var i = 0; i<dtmp.length; i++){
                     series.addPoint(dtmp[i], true, shift);
                 }
             }
-            
+            //Hækka dags fyrir næsta kall
             dateFrom = moment(dateTo._d);
             dateTo = moment(); 
 
