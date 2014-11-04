@@ -2,15 +2,21 @@ doctype html
 html
   head
     title= title
+    
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+
+    script(src='http://code.highcharts.com/highcharts.js')
+    script(src='http://code.highcharts.com/modules/exporting.js')
     
     link(rel='stylesheet', href='/javascripts/date/jquery-ui.css')
     script(src='/javascripts/date/jquery-ui.js')
     link(rel='stylesheet", href="/javascripts/date/jquery-ui.theme.min.css')
     script(src='/bootstrap/js/bootstrap.min.js')
+
     script.
         $(function() {
             $( "#from" ).datepicker({
@@ -37,4 +43,4 @@ html
     
   body
     block content
-    script(src='/javascripts/global.js')
+    

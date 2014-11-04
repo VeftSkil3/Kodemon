@@ -1,9 +1,10 @@
 extends layout
 
 block content
+    script(src='/javascripts/global.js')
     h1= title
     
-    div. data-role="page" id="page1">
+    div. data-role="page"
 
         <div data-role="content">
         </br>
@@ -37,6 +38,12 @@ block content
         </br>
     </div>
 
+    table.table-responsive
+        tr
+            td
+                li 
+                    a(href='/chart') View chart       
+    br
 
     table.table-responsive
         h4 Summary
@@ -69,5 +76,5 @@ block content
                 // /FUNCTION TIMES LIST
 
   
-  
+ 
 

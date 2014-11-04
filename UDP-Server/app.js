@@ -21,17 +21,18 @@ db.once('open', function callback () {
 });
 
 server.on("message", function(msg, rinfo){
-  console.log('got message from client: ' + msg);
-  var data=JSON.parse(msg);
-  var mondata= new MonData({
+    console.log('got message from client: ' + msg);
+    var data=JSON.parse(msg);
+    var mondata= new MonData({
     execution_time: data.execution_time,
     timestamp: new Date(data.timestamp*1000),
     token: data.token,
     key: data.key
   });
-  mondata.save(function(err, mondata){
+
+mondata.save(function(err, mondata){
     console.log('client executed: ' + data.sub + ' time: ' + data.execution_time);
-    var dags = new Date(data.timestamp*1000); //dags.getDate()+'-'+dags.getMonth()+'-'+dags.getFullYear()+ ' - ' +dags.getHours()+':'+dags.getMinutes()+':'+dags.getSeconds()
+    var dags = new Date(data.timestamp*1000);
     console.log(dags.toGMTString());
   });
 });
