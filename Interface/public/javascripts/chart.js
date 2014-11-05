@@ -55,7 +55,39 @@ $(document).ready(function() {
 
 });
 
-function graf(data){
+// Fall sem sækir ný gögn í chart á 5 sekúnda fresti 
+function getNewChartData() {
+    var counter = 1;
+    var dateFrom = moment().subtract(6, 'hour'); 
+    var dateTo = moment(); 
+
+    var query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+     
+    // Byrjum að að ná straks í gögn
+    $.getJSON( '/functions/times/' + query, function( data ) {
+        updateChart(data);
+        //Hækka dags fyrir næsta kall
+        dateFrom = moment(dateTo._d);
+        dateTo = moment(); 
+
+        query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+    });
+
+    // Lúppa á 5 sek fresti
+    setInterval(function () {
+        $.getJSON( '/functions/times/' + query, function( data ) {
+            updateChart(data);
+            //Hækka dags fyrir næsta kall
+            dateFrom = moment(dateTo._d);
+            dateTo = moment(); 
+
+            query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+        });
+    }, 5000);
+}
+
+// Uppfærir seris í chartinu
+function updateChart(data){
     var dtmp = [];
     $.each(data, function(){
         var xasis = new Date(this.DateTime).getTime();
@@ -66,42 +98,9 @@ function graf(data){
 
     if (dtmp.length !== 0 ){
         var series = chart.series[0];
-        while(series.data.length > 0)//Henda út þar til fyrri lengd er jöfn núverandi lengd
-        {
-            series.data.pop();
-        }
-        //var shift = series.data.length >= dtmp.length; // ef series er stærri en 10 stök klippi af (serian sem er að koma inn)
+        var shift = series.data.length > 10; // ef series er stærri en 10 stök klippi af 
         for(var i = 0; i<dtmp.length; i++){
-            series.addPoint(dtmp[i], true, false);
+            series.addPoint(dtmp[i], true, shift);
         }
     }
 }
-
-// Fall sem sækir ný gögn í chart á 5 sekúnda fresti 
-function getNewChartData() {
-    //var counter = 1;
-    //var mf = moment().subtract(1, 'day');
-    //var dateFrom = mf.startOf('day'); 
-    var dateTo = new Date();
-    var dateFrom = new Date();
-    dateFrom.setHours(dateTo.getHours()-1);
-
-    var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
-    
-    $.getJSON( '/functions/times/' + query, function( data ) {
-        graf(data);
-    });
-
-    setInterval(function () {
-        //Hækka dags fyrir næsta kall
-        var dateTo = new Date();
-        var dateFrom = new Date();
-        dateFrom.setHours(dateTo.getHours()-1);
-        var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
-        $.getJSON( '/functions/times/' + query, function( data ) {
-
-            graf(data);
-        });
-    }, 5000);
-}
-
