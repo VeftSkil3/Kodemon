@@ -66,9 +66,13 @@ function graf(data){
 
     if (dtmp.length !== 0 ){
         var series = chart.series[0];
-        var shift = series.data.length >= dtmp.length; // ef series er stærri en 10 stök klippi af (serian sem er að koma inn)
+        while(series.data.length > dtmp.length)//Henda út þar til fyrri lengd er jöfn núverandi lengd
+        {
+            series.data.pop();
+        }
+        //var shift = series.data.length >= dtmp.length; // ef series er stærri en 10 stök klippi af (serian sem er að koma inn)
         for(var i = 0; i<dtmp.length; i++){
-            if(shift){series.data.pop();}
+            series.data.pop();
             series.addPoint(dtmp[i], true, false);
         }
     }
@@ -90,15 +94,14 @@ function getNewChartData() {
     });
 
     setInterval(function () {
+        //Hækka dags fyrir næsta kall
+        var dateTo = new Date();
+        var dateFrom = new Date();
+        dateFrom.setHours(dateTo.getHours()-24);
+        var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
         $.getJSON( '/functions/times/' + query, function( data ) {
 
             graf(data);
-            //Hækka dags fyrir næsta kall
-            var dateTo = new Date();
-            var dateFrom = new Date();
-            dateFrom.setHours(dateTo.getHours()-24);
-
-            var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
         });
     }, 5000);
 }
