@@ -26,8 +26,6 @@ block content
         </br>
 
             <h4> Function list </h4>
-            <form action="/chart" target="_blank" method="get" onsubmit="window.open('/chart/'+$('#combo').val())">
-
             <table class="form-inline">
                 <tr>
                     <td>
@@ -36,11 +34,10 @@ block content
                     <td>
                         <button type="button" class="btn btn-default btn-lg active" id="refresh" name ="refresh" onClick="showFunctionTimes();">Refresh</button>
 
-                        <button type="submit" class="btn btn-primary">View chart</button>
+                        <button type="button" class="btn btn-primary" onclick='showChart();'>View chart</button>
                     </td>
                 </tr>
             </table>
-            </form>
         </br>
     </div>
 

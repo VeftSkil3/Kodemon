@@ -55,38 +55,50 @@ $(document).ready(function() {
 
 });
 
+function graf(data){
+    var dtmp = [];
+    $.each(data, function(){
+        var xasis = new Date(this.DateTime).getTime();
+        var yasis = this.ExecTime;
+        var tmp = [eval(xasis), eval(yasis)];
+        dtmp.push(tmp); 
+    });
+
+    if (dtmp.length !== 0 ){
+        var series = chart.series[0];
+        var shift = series.data.length >= dtmp.length; // ef series er stærri en 10 stök klippi af (serian sem er að koma inn)
+        for(var i = 0; i<dtmp.length; i++){
+            if(shift){series.data.pop();}
+            series.addPoint(dtmp[i], true, false);
+        }
+    }
+}
+
 // Fall sem sækir ný gögn í chart á 5 sekúnda fresti 
 function getNewChartData() {
-    var counter = 1;
-    var mf = moment().subtract(1, 'day');
-    var dateFrom = mf.startOf('day'); 
-    var dateTo = moment(); 
+    //var counter = 1;
+    //var mf = moment().subtract(1, 'day');
+    //var dateFrom = mf.startOf('day'); 
+    var dateTo = new Date();
+    var dateFrom = new Date();
+    dateFrom.setHours(dateTo.getHours()-24);
 
-    var query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+    var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
+    
+    $.getJSON( '/functions/times/' + query, function( data ) {
+        graf(data);
+    });
 
     setInterval(function () {
         $.getJSON( '/functions/times/' + query, function( data ) {
 
-            var dtmp = [];
-            $.each(data, function(){
-                var xasis = new Date(this.DateTime).getTime();
-                var yasis = this.ExecTime;
-                var tmp = [eval(xasis), eval(yasis)];
-                dtmp.push(tmp); 
-            });
-
-            if (dtmp.length !== 0 ){
-                var series = chart.series[0];
-                var shift = series.data.length > 10; // ef series er stærri en 10 stök klippi af 
-                for(var i = 0; i<dtmp.length; i++){
-                    series.addPoint(dtmp[i], true, shift);
-                }
-            }
+            graf(data);
             //Hækka dags fyrir næsta kall
-            dateFrom = moment(dateTo._d);
-            dateTo = moment(); 
+            var dateTo = new Date();
+            var dateFrom = new Date();
+            dateFrom.setHours(dateTo.getHours()-24);
 
-            query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+            var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
         });
     }, 5000);
 }

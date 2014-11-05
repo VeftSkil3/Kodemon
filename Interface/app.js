@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var request = require("request");
 
 var routes = require('./routes/index');
-var functions = require('./routes/functions');
+var functions = require('./routes/functions');c
 
 var moment = require('moment');
 
@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/chart/:key', routes); 
+app.use('/chart/:key/:keyname', routes); 
 app.use('/functions', functions);
 
 /// catch 404 and forwarding to error handler

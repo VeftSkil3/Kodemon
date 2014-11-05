@@ -16,6 +16,11 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
+
+function showChart(){
+    window.open('/chart/'+$('#combo').val()+'/'+$('#combo option:selected').text(), '_blank');
+}
+
 // Þurka út villuskilaboð
 function OnChangeCheckbox () {
 	if (document.getElementById("error").innerHTML != "") {

@@ -7,8 +7,8 @@ router.get('/', function(req, res) {
 });
 
 /* GET chart page. */
-router.get('/chart/:key', function(req, res) {
-  res.render('chart', { title: 'T-514-VEFT Kodemon - Chart', chartId: req.param("key") });
+router.get('/chart/:key/:keyname', function(req, res) {
+  res.render('chart', { title: 'Kodemon - Chart: ', chartId: req.param("key"), chartName: req.param("keyname") });
 });
 
 module.exports = router;
