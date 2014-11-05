@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var request = require("request");
 
 var routes = require('./routes/index');
-var functions = require('./routes/functions');c
+var functions = require('./routes/functions');
 
 var moment = require('moment');
 
