@@ -58,30 +58,27 @@ $(document).ready(function() {
 // Fall sem sækir ný gögn í chart á 5 sekúnda fresti 
 function getNewChartData() {
     var counter = 1;
-    var dateFrom = moment().subtract(6, 'hour'); 
-    var dateTo = moment(); 
+    var dateTo = new Date();
+    var dateFrom = new Date();
+    dateFrom.setHours(dateTo.getHours()-1); 
 
-    var query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+    var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
      
     // Byrjum að að ná straks í gögn
     $.getJSON( '/functions/times/' + query, function( data ) {
         updateChart(data);
-        //Hækka dags fyrir næsta kall
-        dateFrom = moment(dateTo._d);
-        dateTo = moment(); 
-
-        query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
     });
-
+    
     // Lúppa á 5 sek fresti
     setInterval(function () {
+        //Hækka dags fyrir næsta kall
+        dateFrom = dateTo;//moment(dateTo._d);
+        dateTo = moment(); 
+        var query = key + '/' + dateFrom.toISOString() + '/' + dateTo.toISOString();
+        
         $.getJSON( '/functions/times/' + query, function( data ) {
             updateChart(data);
-            //Hækka dags fyrir næsta kall
-            dateFrom = moment(dateTo._d);
-            dateTo = moment(); 
-
-            query = key + '/' + dateFrom.format("YYYY-MM-DD hh:mm:ss") + '/' + dateTo.format("YYYY-MM-DD hh:mm:ss");
+            
         });
     }, 5000);
 }
