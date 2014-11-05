@@ -106,7 +106,8 @@ function showFunctionTimes() {
             else {
                 tableContent += '<tr class="alt">';}
             tableContent += '<td>' + counter + '</td>';
-            tableContent += '<td>' + this.DateTime.slice(0, 10) +  "  " + this.DateTime.slice(12, 19) + '</td>';
+            var tmp = moment(new Date(this.DateTime));
+            tableContent += '<td>' + tmp.format("YYYY-MM-DD hh:mm:ss") + '</td>';
             tableContent += '<td>' + this.ExecTime.toFixed(4) + '</td>';
             tableContent += '</tr>';
             execTimes.push(this.ExecTime);
